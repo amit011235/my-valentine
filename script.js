@@ -2,10 +2,10 @@
 const TOTAL_PHOTOS = 38; 
 const SLIDE_DURATION = 4000; // 4 seconds per photo
 
-// LIST OF 38 LOVELY QUOTES (Hindi Script with 'Aap' + English Mixed)
+// LIST OF 38 LOVELY QUOTES (Hindi 'Aap' Script)
 const quotes = [
-  "Baby Anisha, आप मेरी जान हैं ❤️",
-  "My heart beats only for you, जी! 💓",
+  "Babyyyyyyy, आप मेरी जान हैं ❤️",
+  "My heart beats only for you, JAAN! 💓",
   "आपकी smile पर मैं फ़िदा हूँ 😊",
   "You are my favorite notification 📲",
   "जान लेंगी क्या? You look so beautiful! 😍",
@@ -14,9 +14,9 @@ const quotes = [
   "आप ही मेरी दुनिया हैं, baby 🌍",
   "आपके बिना सुकून कहाँ? You are my peace 🏠",
   "ये दिल अब आपका हो गया है 💘",
-  "I love you more than Chai (and that says a lot!) ☕",
-  "आप मेरा forever ♾️ love हैं ✨",
-  "My partner in crime, मेरी Anisha 😎",
+  "I love you more than Chai ☕",
+  "आप मेरा Forever ♾️ love हैं ✨",
+  "My partner in crime, मेरी Anisha baby😎",
   "आपकी आँखों में जादू है 👀",
   "You are the reason I smile today 😊",
   "सच कहूँ? आपके जैसा कोई नहीं 🌹",
@@ -44,7 +44,6 @@ const quotes = [
   "Will you be my Valentine forever, Anisha? 💍"
 ];
 
-
 // --- SELECTORS ---
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
@@ -56,40 +55,28 @@ const bgMusic = document.getElementById("bgMusic");
 const noSound = document.getElementById("noSound");
 
 // --- 1. RUNAWAY "NO" BUTTON ---
-// Move button on Hover (Desktop) or Touch (Mobile)
 noBtn.addEventListener("mouseover", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton);
 
 function moveNoButton(e) {
-  if(e) e.preventDefault(); // Stop clicking on mobile
-  
+  if(e) e.preventDefault(); 
   noSound.currentTime = 0;
   noSound.play().catch(e => console.log("Audio needed interaction"));
 
-  // Get screen width/height to make it jump ANYWHERE
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
-  noBtn.style.position = "fixed"; // Make it break out of the card
+  noBtn.style.position = "fixed";
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 }
 
 // --- 2. "YES" BUTTON CLICK ---
 yesBtn.addEventListener("click", () => {
-  // Hide Card
   proposalCard.style.display = "none";
-  
-  // Show Slideshow
   slideshowContainer.classList.remove("hidden");
-  
-  // Play Music
   bgMusic.play();
-  
-  // Confetti
   confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-
-  // Start Slideshow
   initSlideshow();
 });
 
@@ -98,10 +85,58 @@ function initSlideshow() {
   // Create Images
   for (let i = 1; i <= TOTAL_PHOTOS; i++) {
     const img = document.createElement("img");
-    img.src = `photos/${i}.jpg`; // Assumes files are 1.jpg, 2.jpg...
+    img.src = `photos/${i}.jpg`; 
     img.className = "slide-photo";
     photoWrapper.appendChild(img);
   }
+
+  const photos = document.querySelectorAll(".slide-photo");
+  let currentIndex = 0;
+  let slideInterval;
+
+  function showFrame(index) {
+    photos.forEach(p => p.classList.remove("active"));
+    photos[index].classList.add("active");
+    quoteDisplay.innerText = quotes[index % quotes.length];
+  }
+
+  // Show first photo
+  showFrame(currentIndex);
+
+  // Start Loop
+  slideInterval = setInterval(() => {
+    // CHECK IF LAST PHOTO REACHED
+    if (currentIndex >= TOTAL_PHOTOS - 1) {
+      clearInterval(slideInterval); // STOP THE LOOP
+      showFinalSurprise();          // SHOW BIG HEART
+    } else {
+      currentIndex++;
+      showFrame(currentIndex);
+    }
+  }, SLIDE_DURATION);
+}
+
+// --- 4. FINAL SURPRISE FUNCTION ---
+function showFinalSurprise() {
+  // Hide the small quote text
+  quoteDisplay.style.display = "none";
+
+  // Create the overlay div
+  const overlay = document.createElement("div");
+  overlay.className = "final-overlay";
+  
+  // HTML for the Heart and Final Text
+  overlay.innerHTML = `
+    <div class="big-heart">❤️</div>
+    <div class="final-text">I Love You, Anisha!</div>
+    <div class="final-text" style="font-size: 20px;">(Forever & Always)</div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // Extra Confetti Explosion
+  confetti({ particleCount: 300, spread: 180, origin: { y: 0.5 } });
+}
 
   const photos = document.querySelectorAll(".slide-photo");
   let currentIndex = 0;
