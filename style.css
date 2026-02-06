@@ -1,3 +1,4 @@
+/* GLOBAL STYLES */
 * {
   margin: 0;
   padding: 0;
@@ -9,18 +10,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Romantic Gradient Background */
   background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); 
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
 }
 
-/* CARD STYLES */
+/* --- CARD DESIGN --- */
 .card {
   text-align: center;
   background: rgba(255, 255, 255, 0.9);
   padding: 40px;
   border-radius: 30px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
   border: 4px solid #fff;
   width: 90%;
   max-width: 400px;
@@ -33,14 +35,23 @@ body {
   font-size: 32px;
   color: #d63384;
   margin: 20px 0;
+  line-height: 1.3;
 }
 
-.img-container img {
-  width: 160px;
-  height: 160px;
+/* "Good Editing" Bear Style */
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+#mainBear {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
   border-radius: 50%;
   border: 5px solid white;
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+  /* Glowing Pink Effect */
+  box-shadow: 0 0 25px rgba(255, 77, 109, 0.6); 
   animation: float 3s ease-in-out infinite;
 }
 
@@ -49,10 +60,10 @@ body {
   50% { transform: translateY(-10px); }
 }
 
-/* BUTTONS */
+/* --- BUTTONS --- */
 .buttons {
   margin-top: 20px;
-  height: 60px; /* Space for buttons */
+  height: 60px;
 }
 
 button {
@@ -71,15 +82,16 @@ button {
   box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
 }
 
+#yes:active { transform: scale(0.95); }
+
 #no {
   background: #fff;
   color: #555;
   border: 1px solid #ccc;
-  position: absolute; /* Allows movement anywhere */
-  transition: 0.1s; /* Fast movement */
+  position: absolute; /* Allows it to jump anywhere */
 }
 
-/* SLIDESHOW STYLES */
+/* --- SLIDESHOW --- */
 .hidden { display: none !important; }
 
 #slideshowContainer {
@@ -92,6 +104,12 @@ button {
   z-index: 999;
 }
 
+#photoWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .slide-photo {
   position: absolute;
   top: 0;
@@ -102,6 +120,79 @@ button {
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
 }
+
+.slide-photo.active {
+  opacity: 0.7; /* Slightly dark so text is readable */
+  animation: zoomEffect 6s linear infinite;
+}
+
+@keyframes zoomEffect {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* --- QUOTES (High Visibility) --- */
+.love-quote {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  
+  /* Black box behind text */
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(3px);
+  
+  color: white;
+  text-align: center;
+  font-family: 'Sacramento', cursive;
+  font-size: 28px;
+  z-index: 10000;
+  animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* --- FINAL BIG HEART --- */
+.final-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  animation: fadeIn 2s ease;
+}
+
+.big-heart {
+  font-size: 100px;
+  animation: heartBeat 1s infinite alternate;
+}
+
+.final-text {
+  color: white;
+  font-family: 'Sacramento', cursive;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .slide-photo.active {
   opacity: 0.6; /* Darkened slightly so text pops */
