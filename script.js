@@ -2,10 +2,9 @@
 const TOTAL_PHOTOS = 38; 
 const SLIDE_DURATION = 4000; // 4 seconds per photo
 
-// LIST OF 38 LOVELY QUOTES (One for each photo)
 // LIST OF 38 LOVELY QUOTES (Hindi Script with 'Aap' + English Mixed)
 const quotes = [
-  "Listen Anisha, आप मेरी जान हैं ❤️",
+  "Baby Anisha, आप मेरी जान हैं ❤️",
   "My heart beats only for you, जी! 💓",
   "आपकी smile पर मैं फ़िदा हूँ 😊",
   "You are my favorite notification 📲",
@@ -16,7 +15,7 @@ const quotes = [
   "आपके बिना सुकून कहाँ? You are my peace 🏠",
   "ये दिल अब आपका हो गया है 💘",
   "I love you more than Chai (and that says a lot!) ☕",
-  "आप मेरा first and last love हैं ✨",
+  "आप मेरा forever ♾️ love हैं ✨",
   "My partner in crime, मेरी Anisha 😎",
   "आपकी आँखों में जादू है 👀",
   "You are the reason I smile today 😊",
@@ -24,7 +23,7 @@ const quotes = [
   "हमारी जोड़ी Number 1 है 💑",
   "Life is better जब आप साथ हैं 👫",
   "आप हँसती हैं तो मेरा दिल खुश हो जाता है 😂",
-  "Forever आपके साथ बूढ़ा होना है 👵👴",
+  "Forever आपके साथ होना है 👵👴",
   "You are my sunshine, मेरा सोना ☀️",
   "आपके साथ वक्त का पता ही नहीं चलता ⏳",
   "You are perfect, बिलकुल perfect 💎",
