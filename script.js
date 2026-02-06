@@ -1,81 +1,77 @@
-// 1. Select all the elements we need
-const noBtn = document.getElementById("no");
+// CONFIGURATION
+const TOTAL_PHOTOS = 38; // Number of photos in your folder
+const SLIDE_DURATION = 4000; // Time per photo (4 seconds)
+
+// SELECTORS
 const yesBtn = document.getElementById("yes");
-const card = document.querySelector(".card");
-const popup = document.getElementById("lovePopup"); // The new popup
-const hoverSound = document.getElementById("hoverSound");
-const yesSound = document.getElementById("yesSound");
+const noBtn = document.getElementById("no");
+const proposalCard = document.getElementById("proposalCard");
+const slideshowContainer = document.getElementById("slideshowContainer");
+const photoWrapper = document.getElementById("photoWrapper");
+const bgMusic = document.getElementById("bgMusic");
+const noSound = document.getElementById("noSound");
 
-// 2. The "No" Button Logic (It runs away!)
+// 1. "NO" BUTTON EVASION LOGIC
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton); // For mobile
+
 function moveButton() {
-  // Play the funny sound
-  hoverSound.currentTime = 0;
-  hoverSound.play().catch(error => console.log("Audio play failed", error));
+  // Play funny sound
+  noSound.currentTime = 0;
+  noSound.play().catch(e => console.log("Sound blocked"));
 
-  // Get the size of the card so the button stays inside
-  const cardRect = card.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+  // Calculate random position
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
 
-  // Calculate random positions
-  const maxX = cardRect.width - btnRect.width - 20;
-  const maxY = cardRect.height - btnRect.height - 20;
-
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  // Apply new position
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
 }
 
-// Add events for both Mouse (Computer) and Touch (Phone)
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", (e) => { 
-  e.preventDefault(); // Prevents clicking
-  moveButton();
+// 2. "YES" BUTTON LOGIC
+yesBtn.addEventListener("click", () => {
+  // 1. Hide the Proposal Card
+  proposalCard.style.display = "none";
+  
+  // 2. Show the Slideshow
+  slideshowContainer.classList.remove("hidden");
+  
+  // 3. Play Romantic Music
+  bgMusic.play().catch(e => console.log("Music blocked"));
+  
+  // 4. Fire Confetti
+  confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+  // 5. Start the Slideshow Logic
+  startSlideshow();
 });
 
-// 3. The "Yes" Button Logic (Confetti + Popup)
-yesBtn.addEventListener("click", () => {
-  // Play the success sound
-  yesSound.play().catch(error => console.log("Audio play failed", error));
-
-  // Fire the Confetti explosion
-  if (typeof confetti === "function") {
-    confetti({
-      particleCount: 200,
-      spread: 120,
-      origin: { y: 0.6 }
-    });
+// 3. SLIDESHOW LOGIC
+function startSlideshow() {
+  // Dynamically create 38 image elements
+  for (let i = 1; i <= TOTAL_PHOTOS; i++) {
+    const img = document.createElement("img");
+    // This assumes your photos are named 1.jpg, 2.jpg... inside a 'photos' folder
+    img.src = `photos/${i}.jpg`; 
+    img.className = "slide-photo";
+    photoWrapper.appendChild(img);
   }
 
-  // Show the Love Popup after a short delay (300ms)
-  setTimeout(() => {
-    popup.classList.add("show"); // This activates the CSS to show the images
-  }, 300);
-});
+  const photos = document.querySelectorAll(".slide-photo");
+  let currentIndex = 0;
 
-// 4. Background Floating Hearts Animation
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  
-  // Randomly choose a heart emoji
-  heart.innerHTML = Math.random() > 0.5 ? "❤️" : "💖";
-  
-  // Random position and size
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 15 + "px";
-  
-  // Random speed
-  heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-  
-  // Append to body and remove after animation
-  document.body.appendChild(heart);
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  // Show the first photo immediately
+  photos[currentIndex].classList.add("active");
+
+  // Cycle through photos
+  setInterval(() => {
+    // Remove active class from current photo
+    photos[currentIndex].classList.remove("active");
+
+    // Move to next index (loop back to 0 if at the end)
+    currentIndex = (currentIndex + 1) % photos.length;
+
+    // Add active class to new photo
+    photos[currentIndex].classList.add("active");
+  }, SLIDE_DURATION);
 }
-
-// Create a new heart every 400 milliseconds
-setInterval(createHeart, 400);
