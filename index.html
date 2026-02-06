@@ -1,8 +1,49 @@
-<div id="love-popup" style="display: none;">
-    <h2>Love is in the air!</h2>
-    <p>Click here to spread the love!</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Be My Valentine 💘</title>
 
-<script>
-    // Your existing JavaScript code
-</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="emoji">🐱❤️</div>
+    
+    <h2>ANISHA BABY,<br>will you be my Valentine?</h2>
+
+    <div class="buttons">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 🙈</button>
+    </div>
+
+    <div class="hint">Some love stories don't allow "no" ✨</div>
+  </div>
+
+  <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-voice-laugh-343.mp3"></audio>
+  <audio id="yesSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+
+  <div id="lovePopup" class="popup hidden">
+    <div class="popup-content">
+      <h2>Yay! I Love You Anisha! 💖</h2>
+      <div class="image-grid">
+        <img src="https://media.tenor.com/On7kbqLd868AAAAi/mocha-bear.gif" alt="Cute 1">
+        <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Cute 2">
+        <img src="https://media.tenor.com/2f64f4j3yH0AAAAi/cute-love.gif" alt="Cute 3">
+        <img src="https://media.tenor.com/J33yD3YJ4yEAAAAi/cute-panda.gif" alt="Cute 4">
+      </div>
+      <p>Forever & Always ✨</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
